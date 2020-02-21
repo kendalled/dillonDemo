@@ -27,7 +27,7 @@
       leave-to-class="opacity-0 scale-70"
       appear
     >
-      <div v-if="showContent" class="relative card bg-white flex flex-col w-full max-w-md rounded shadow-xl items-center py-12 px-4">
+      <div v-if="showContent" class="relative card bg-white flex flex-col w-full max-w-md rounded shadow-xl items-center py-8 px-4">
         <slot />
       </div>
     </transition>
