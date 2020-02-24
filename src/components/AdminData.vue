@@ -146,9 +146,9 @@
               id="title"
               v-model="opened.title"
               v-if="opened.title"
+              @input="emitChange"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
-              @input="emitChange"
               placeholder="Dart Boards"
             >
             <!-- <p class="text-red-500 text-xs italic">
@@ -163,9 +163,9 @@
               id="link"
               v-model="opened.link"
               v-if="opened.link"
+              @input="emitChange"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
-              @input="emitChange"
               placeholder="https://google.com"
             >
           </div>
@@ -187,12 +187,16 @@
             <input id="testing" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="https://google.com">
           </div>
         </div>
+        <button @click="saveData(opened)" class="w-full py-3 text-white bg-blue-600 rounded shadow mt-3">
+          Save
+        </button>
       </Modal>
     </div>
   </div>
 </template>
 
 <script>
+import { fireDb } from '~/plugins/firebase'
 import Modal from '~/components/Modal'
 export default {
   name: 'AdminData',
@@ -217,6 +221,17 @@ export default {
     emitChange () {
       this.$emit('changed', this.data)
       console.log('input event fired')
+    },
+    saveData (val) {
+      // db reference
+      const blogref = fireDb.collection('items').doc('item1')
+      // sets in firestore
+      try {
+        blogref.set(val)
+      } catch (error) {
+        alert(error)
+      }
+      console.log('updated firestore??')
     },
     showOpen () {
       this.openModal = true

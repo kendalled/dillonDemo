@@ -38,12 +38,15 @@
       >
         <div class="w-64 bg-white rounded-lg shadow-lg border">
           <div class="flex items-center px-6 py-4">
-            <span
-              class="block h-10 w-10 px-1 overflow-hidden rounded-full border-2 "
+            <div>
+              <img :src="require('~/static/audilogot.png')" class="inline-block h-10 w-10 rounded-full object-contain object-center overflow-hidden bg-gray-100 border-2 border-gray-700 focus:border-green-600" alt="">
+            </div>
+            <!-- <span
+              class=""
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-user fill-current text-green-600 h-full w-full object-cover"><path class="primary" d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z" /><path class="secondary" d="M21 20v-1a5 5 0 0 0-5-5H8a5 5 0 0 0-5 5v1c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2z" /></svg>
 
-            </span>
+            </span> -->
             <div class="ml-4">
               <p class="font-semibold text-gray-900 leading-none">
                 {{ accountName }}
