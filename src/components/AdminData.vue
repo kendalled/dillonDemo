@@ -137,7 +137,7 @@
         <h1 v-if="modalOpen" class="text-center font-bold text-gray-800 text-xl">
           Editing {{ opened.id }}
         </h1>
-        <div class="flex flex-wrap -mx-3 mb-6 mt-4">
+        <div class="flex flex-wrap -mx-3 mt-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="title">
               Title
@@ -170,7 +170,7 @@
             >
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6 mt-4">
+        <div class="flex flex-wrap -mx-3 mt-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
               Price
