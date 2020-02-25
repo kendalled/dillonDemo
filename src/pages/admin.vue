@@ -12,7 +12,7 @@
                 <span class="hidden">spacer</span>
               </div>
               <nuxt-link to="/" class="appearance-none absolute mt-1 -ml-2">
-                <img class="h-40 w-auto mt-1" src="~/static/pts.png" alt="pool table store logo.">
+                <img class="h-40 w-auto" src="~/static/pts.png" alt="pool table store logo.">
               </nuxt-link>
               <div class="w-1/4 md:w-auto md:flex text-right">
                 <!-- <div>
@@ -94,7 +94,7 @@ import Modal from '~/components/Modal'
 import AFooter from '~/components/AFooter'
 export default {
   name: 'Admin',
-  layout: 'admin',
+  layout: 'Admin',
   components: {
     AccountDropdown,
     AdminData,

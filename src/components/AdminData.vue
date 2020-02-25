@@ -157,10 +157,10 @@
             />
           </svg>
         </div>
-        <h1 v-if="modalOpen" class="text-center font-semibold text-gray-700 text-lg -mt-2 mb-2">
-          Editing: {{ opened.id }}
+        <h1 v-if="modalOpen" class="-mt-2 mb-2 text-center font-semibold text-lg text-gray-800">
+          Editing: {{ opened.id }}<span :class="[need ? 'text-red-700' : 'hidden']">*</span>
         </h1>
-        <div v-show="!editing" class="flex flex-wrap -mx-3 mt-3 mb-2">
+        <div v-show="!base" class="flex flex-wrap -mx-3 mt-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="title">
               Title
@@ -169,7 +169,7 @@
               id="title"
               v-model="opened.title"
               v-if="opened.title"
-              @input="emitChange"
+              @input="needSaved"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
               placeholder="Dart Boards"
@@ -186,14 +186,14 @@
               id="link"
               v-model="opened.link"
               v-if="opened.link"
-              @input="emitChange"
+              @input="needSaved"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="url"
               placeholder="https://pooltablestore.com"
             >
           </div>
         </div>
-        <div v-show="!editing" class="flex flex-wrap -mx-3 mb-2">
+        <div v-show="!base" class="flex flex-wrap -mx-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="msrp">
               msrp
@@ -202,7 +202,7 @@
               id="msrp"
               v-model="opened.msrp"
               v-if="opened.msrp"
-              @input="emitChange"
+              @input="needSaved"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
               placeholder="399.99"
@@ -219,33 +219,34 @@
               id="price"
               v-model="opened.price"
               v-if="opened.price"
-              @input="emitChange"
+              @input="needSaved"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               type="text"
               placeholder="399.99"
             >
           </div>
         </div>
-        <span v-show="editing" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left w-full">Images</span>
-        <div v-show="editing" class="flex justify-start mb-4 w-full">
-          <div v-for="(img, j) in opened.page.data" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer transition-colors">
+        <span v-show="base" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left w-full">Images</span>
+        <div v-show="base" class="flex justify-start mb-4 w-full">
+          <div v-for="(img, j) in opened.page.data" v-if="!filesChanged" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer">
+            <img :src="img" class="inline-block w-auto h-16 object-cover" draggable="false">
+          </div>
+          <div v-for="(img, j) in opened.page.data" v-if="filesChanged" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer">
             <img :src="img" class="inline-block w-auto h-16 object-cover" draggable="false">
           </div>
           <div class="flex-col w-1/2 h-auto">
-            <button class="bg-blue-500 hover:bg-blue-700 text-sm text-white font-semibold py-1 w-full rounded transition-colors">
-              Select file...
-            </button>
-            <button class="mt-2 text-gray-700 border-b-2 font-semibold text-sm py-0 w-full hover:border-blue-400 transition-colors hover:text-blue-600 pb-1">
+            <CustomFileInput @file="newFile" />
+            <button @click="openPrev" class="focus:outline-none mt-2 text-gray-700 border-b-2 font-semibold text-sm py-0 w-full hover:border-blue-400 transition-colors hover:text-blue-600 pb-1">
               preview
             </button>
           </div>
         </div>
         <div class="flex w-full h-auto justify-between">
-          <button v-if="editing" @click="editing = false" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
-            price & link
+          <button v-if="base" @click="base = false" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
+            back
           </button>
-          <button v-if="!editing" @click="editing = true" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
-            photos & features
+          <button v-if="!base" @click="base = true" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
+            edit photos
           </button>
           <button @click="saveData(opened)" class="flex-shrink-0 bg-blue-500 font-semibold hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-5 rounded transition-colors" type="button">
             Save
@@ -258,10 +259,12 @@
 
 <script>
 import { fireDb } from '~/plugins/firebase'
+import CustomFileInput from '~/components/CustomFileInput'
 import Modal from '~/components/Modal'
 export default {
   name: 'AdminData',
   components: {
+    CustomFileInput,
     Modal
   },
   props: {
@@ -274,26 +277,51 @@ export default {
   },
   data () {
     return {
+      url: '',
+      opened: this.data[0],
       picIndex: 0,
-      editing: false,
+      base: false,
       modalOpen: false,
-      opened: this.data[0]
+      filesChanged: false,
+      need: false
     }
   },
   watch: {
     modalOpen () {
       if (this.modalOpen === false) {
-        this.editing = false
+        this.filesChanged = false
+        // base == base page (true if on page 0)
+        this.base = false
         this.picIndex = 0
+      }
+    },
+    url () {
+      if (this.url !== '') {
+        this.opened.page.data[this.picIndex] = this.url
+        console.log('changed pics!')
       }
     }
   },
   methods: {
+    openPrev () {
+      const vm = this
+      if (process.browser) {
+        const link = vm.opened.page.data[vm.picIndex]
+        window.open(link, '_blank')
+      }
+    },
+    needSaved () {
+      // tracks if changes need to be saved
+      this.need = true
+    },
+    newFile (link) {
+      this.need = true
+      this.filesChanged = true
+      this.url = link
+      console.log('new url seen: ' + this.url)
+    },
     chooseImg (ind) {
       this.picIndex = ind
-    },
-    emitChange () {
-      console.log('input event fired')
     },
     saveData (val) {
       // db reference
@@ -305,6 +333,7 @@ export default {
         alert(error)
       }
       this.modalOpen = false
+      this.need = false
       console.log('updated firestore??')
     },
     modalOpener (elem) {

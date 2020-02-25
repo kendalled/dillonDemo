@@ -9,6 +9,7 @@ import { fireDb } from '~/plugins/firebase'
 import CarouselDemo from '~/components/CarouselDemo'
 export default {
   components: { CarouselDemo },
+  layout: 'Default',
   data () {
     return {
       doc: []
@@ -30,13 +31,6 @@ export default {
     // TODO: error handling
       console.log(e)
     }
-    // if (data !== []) {
-    //   for (let i = 0; i < data.length; i++) {
-    //     for (let j = 0; j < data[i].data.length; j++) {
-    //       data[i].data[j] = require(data[i].data[j])
-    //     }
-    //   }
-    // }
     return {
       doc: data
     }

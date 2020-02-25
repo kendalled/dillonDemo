@@ -61,6 +61,6 @@ html {
 
 <script>
 export default {
-  name: 'admin'
+  name: 'Admin'
 }
 </script>
