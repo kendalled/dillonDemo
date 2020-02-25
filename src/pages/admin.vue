@@ -9,9 +9,11 @@
                 <svg class="fill-current text-white h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M16.4 9H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1zm0 4H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1zM3.6 7h12.8c.552 0 .6-.447.6-1 0-.553-.048-1-.6-1H3.6c-.552 0-.6.447-.6 1 0 .553.048 1 .6 1z" /></svg>
               </div>
               <div class="w-1/2 md:w-auto text-center text-gray-800 text-2xl font-semibold">
-                <span class="hidden">{{ isDifferent }}</span>
+                <span class="hidden">spacer</span>
               </div>
-              <img class="absolute h-40 w-auto mt-1" src="~/static/pts.png" alt="pool table store logo.">
+              <nuxt-link to="/" class="appearance-none absolute mt-1 -ml-2">
+                <img class="h-40 w-auto mt-1" src="~/static/pts.png" alt="pool table store logo.">
+              </nuxt-link>
               <div class="w-1/4 md:w-auto md:flex text-right">
                 <!-- <div>
                   <img :src="require('~/static/audilogot.png')" class="inline-block h-10 w-10 rounded-full object-contain object-center overflow-hidden bg-gray-100 border-2 border-gray-700 focus:border-green-600" alt="">
@@ -27,12 +29,7 @@
             </div>
           </div>
         </div>
-        <AdminData :data="doc" v-if="isDoc" @changed="showChange" />
-        <div class="flex justify-end w-4/5 ml-12">
-          <button v-if="isDifferent" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-full max-w-md rounded focus:outline-none focus:shadow-outline" type="submit">
-            Save Changes
-          </button>
-        </div>
+        <AdminData :data="doc" v-if="isDoc" />
         <AFooter class="hidden" />
       </div>
       <div v-if="!loggedIn" class="flex flex-col h-screen w-screen items-center justify-center text-center">
@@ -161,10 +158,6 @@ export default {
     }
   },
   methods: {
-    showChange (val) {
-      console.log(val === this.doc)
-      this.doc2 = val
-    },
     signOut () {
       auth.signOut().then(function () {
         console.log('signing out...')

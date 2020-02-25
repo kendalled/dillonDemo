@@ -25,6 +25,11 @@
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
+                  msrp
+                </th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                >
                   price
                 </th>
                 <th
@@ -73,8 +78,13 @@
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
+                  <p class="text-gray-600 font-semibold whitespace-no-wrap">
+                    {{ elem.msrp }}
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
                   <p class="text-green-600 font-semibold whitespace-no-wrap">
-                    $299.99
+                    {{ elem.price }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
@@ -116,7 +126,7 @@
             class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          "
           >
             <span class="text-xs xs:text-sm text-gray-900">
-              Showing 1 to 4 of 50 Entries
+              This is placeholder text
             </span>
             <div class="inline-flex mt-2 xs:mt-0">
               <button
@@ -134,10 +144,23 @@
         </div>
       </div>
       <Modal :open="modalOpen" @close="modalOpen = false" class="modal">
-        <h1 v-if="modalOpen" class="text-center font-bold text-gray-800 text-xl">
-          Editing {{ opened.id }}
+        <div @click="modalOpen = false" class="cursor-pointer z-50 flex w-full justify-end -mt-4">
+          <svg
+            class="fill-current text-gray-600 hover:text-blue-700 transition-colors"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+          >
+            <path
+              d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
+            />
+          </svg>
+        </div>
+        <h1 v-if="modalOpen" class="text-center font-semibold text-gray-700 text-lg -mt-2 mb-2">
+          Editing: {{ opened.id }}
         </h1>
-        <div class="flex flex-wrap -mx-3 mt-3 mb-2">
+        <div v-show="!editing" class="flex flex-wrap -mx-3 mt-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="title">
               Title
@@ -165,31 +188,69 @@
               v-if="opened.link"
               @input="emitChange"
               class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              type="text"
-              placeholder="https://google.com"
+              type="url"
+              placeholder="https://pooltablestore.com"
             >
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mt-3 mb-2">
+        <div v-show="!editing" class="flex flex-wrap -mx-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
-              Price
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="msrp">
+              msrp
             </label>
-            <input id="price" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="number" placeholder="299.99">
+            <input
+              id="msrp"
+              v-model="opened.msrp"
+              v-if="opened.msrp"
+              @input="emitChange"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="399.99"
+            >
             <!-- <p class="text-red-500 text-xs italic">
               Please fill out this field.
             </p> -->
           </div>
-          <div class="w-full md:w-1/2 px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="testing">
-              Testing
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+              price
             </label>
-            <input id="testing" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="https://google.com">
+            <input
+              id="price"
+              v-model="opened.price"
+              v-if="opened.price"
+              @input="emitChange"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="399.99"
+            >
           </div>
         </div>
-        <button @click="saveData(opened)" class="w-full py-3 text-white bg-blue-600 rounded shadow mt-3">
-          Save
-        </button>
+        <span v-show="editing" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left w-full">Images</span>
+        <div v-show="editing" class="flex justify-start mb-4 w-full">
+          <div v-for="(img, j) in opened.page.data" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer transition-colors">
+            <img :src="img" class="inline-block w-auto h-16 object-cover" draggable="false">
+          </div>
+          <div class="flex-col w-1/2 h-auto">
+            <button class="bg-blue-500 hover:bg-blue-700 text-sm text-white font-semibold py-1 w-full rounded transition-colors">
+              Select file...
+            </button>
+            <button class="mt-2 text-gray-700 border-b-2 font-semibold text-sm py-0 w-full hover:border-blue-400 transition-colors hover:text-blue-600 pb-1">
+              preview
+            </button>
+          </div>
+        </div>
+        <div class="flex w-full h-auto justify-between">
+          <button v-if="editing" @click="editing = false" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
+            price & link
+          </button>
+          <button v-if="!editing" @click="editing = true" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
+            photos & features
+          </button>
+          <button @click="saveData(opened)" class="flex-shrink-0 bg-blue-500 font-semibold hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-5 rounded transition-colors" type="button">
+            Save
+          </button>
+        </div>
       </Modal>
     </div>
   </div>
@@ -213,29 +274,38 @@ export default {
   },
   data () {
     return {
+      picIndex: 0,
+      editing: false,
       modalOpen: false,
       opened: this.data[0]
     }
   },
+  watch: {
+    modalOpen () {
+      if (this.modalOpen === false) {
+        this.editing = false
+        this.picIndex = 0
+      }
+    }
+  },
   methods: {
+    chooseImg (ind) {
+      this.picIndex = ind
+    },
     emitChange () {
-      this.$emit('changed', this.data)
       console.log('input event fired')
     },
     saveData (val) {
       // db reference
-      const blogref = fireDb.collection('items').doc('item1')
+      const blogref = fireDb.collection('items').doc(val.id)
       // sets in firestore
       try {
         blogref.set(val)
       } catch (error) {
         alert(error)
       }
+      this.modalOpen = false
       console.log('updated firestore??')
-    },
-    showOpen () {
-      this.openModal = true
-      console.log('open modal!')
     },
     modalOpener (elem) {
       console.log(elem)

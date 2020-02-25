@@ -2,11 +2,11 @@
   <div id="dropdown" class="relative inline-block">
     <button
       @click="opened = true"
-      class="mx-4 pl-4 pr-2 py-2 font-medium inline-flex text-sm items-center text-white bg-gray-800 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline active:bg-gray-900 transition-bg"
+      class="mx-4 pl-4 pr-2 py-2 font-medium inline-flex text-sm items-center border-2 rounded text-gray-700 hover:text-gray-900 focus:outline-none focus:border-green-400 hover:border-gray-500 transition-colors"
     >
-      Account
+      Dillon Twilley
       <svg
-        class="ml-2 h-6 w-6 text-white"
+        class="ml-2 h-6 w-6"
         style="margin-bottom: -.2rem;"
         fill="currentColor"
         viewBox="0 0 24 24"

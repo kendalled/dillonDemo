@@ -104,9 +104,9 @@ export default {
             title: 'pac-man',
             data:
           [
-            require('~/static/poolnewnew.png'),
-            require('~/static/poolnew2.png'),
-            require('~/static/poolnew3.png')
+            require('~/static/pac.png'),
+            require('~/static/pac2.png'),
+            require('~/static/pac3.png')
           ]
           }
         }
