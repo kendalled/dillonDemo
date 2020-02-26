@@ -91,7 +91,7 @@
                   <button
                     @click="modalOpener(elem)"
                     aria-hidden
-                    class="text-sm relative inline-flex -tems-center bg-green-200 shadow px-5 py-2 font-bold text-green-800 hover:text-white leading-tight rounded hover:bg-green-600 transition-colors cursor-pointer focus:outline-none"
+                    class="text-sm relative inline-flex -tems-center bg-green-200 px-5 py-2 font-bold text-green-800 hover:text-white leading-tight rounded hover:bg-green-600 transition-colors cursor-pointer focus:outline-none"
                   >
                     <span>edit</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3 h-3 ml-2 mt-1 icon-edit fill-current"><path class="primary" d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z" /><rect
@@ -115,7 +115,7 @@
               {{ data.length }}/{{ data.length }} slides <span v-if="need" class="text-sm font-semibold text-red-600">*</span>
             </span>
             <div class="flex w-full justify-end xs:mt-0">
-              <button @click="addSlide" class="bg-green-200 hover:bg-green-500 text-green-900 font-bold py-2 px-4 rounded inline-flex items-center transition-colors group focus:outline-none shadow">
+              <button @click="addSlide" class="bg-green-200 hover:bg-green-500 text-green-900 font-bold py-2 px-4 rounded inline-flex items-center transition-colors group focus:outline-none">
                 <span class="group-hover:text-white">Add Slide</span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-auto ml-3 fill-current text-green-700 group-hover:text-gray-100 icon-add-circle transition-none"><circle cx="12" cy="12" r="10" class="primary" /><path class="secondary fill-current text-white group-hover:text-gray-800 transition-colors" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z" /></svg>
               </button>
