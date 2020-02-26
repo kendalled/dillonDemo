@@ -2,7 +2,7 @@
   <div id="dropdown" class="relative inline-block">
     <button
       @click="opened = true"
-      class="mx-4 pl-4 pr-2 py-2 font-medium inline-flex text-sm items-center border-2 rounded text-gray-700 hover:text-gray-900 focus:outline-none focus:border-green-400 hover:border-gray-500 transition-colors"
+      class="mx-4 pl-4 pr-2 py-2 font-medium inline-flex text-sm items-center border-b-2 pb-2 text-gray-700 hover:text-gray-900 focus:outline-none focus:border-green-400 hover:border-gray-500 transition-colors"
     >
       Dillon Twilley
       <svg
