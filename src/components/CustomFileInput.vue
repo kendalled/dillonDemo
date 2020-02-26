@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-auto h-auto">
     <div :class="[uploading ? 'opacity-0' : 'opacity-100']" class="flex w-full h-auto items-center justify-center mb-0">
-      <label class="w-full flex flex-col items-center px-4 bg-blue-500 text-gray-100 rounded tracking-wide border cursor-pointer hover:bg-blue-600 hover:text-white transition-colors py-1">
+      <label class="w-full flex flex-col items-center px-4 bg-blue-500 text-gray-100 rounded tracking-wide shadow cursor-pointer hover:bg-blue-600 hover:text-white transition-colors py-1">
         <span class="font-semibold text-sm">Select file(s)</span>
         <section class="text-left h-auto flex flex-col w-full justify-start">
           <div class="flex w-full h-auto">

@@ -16,7 +16,7 @@
               class="w-auto h-auto ml-4 shadowed"
               alt="green apple slice"
             >
-            <div class="absolute bg-red-700 border-4 border-red-700 shadow rounded-r-lg font-black text-white px-8 py-2 text-base tracking-relaxed" style="margin-top: 20rem; margin-left: 0rem;">
+            <div class="absolute bg-red-700 border-4 border-red-700 shadow rounded-r-lg font-bold text-white px-8 py-2 text-sm tracking-relaxed" style="margin-top: 20rem; margin-left: 0rem;">
               SALE
             </div>
           </div>
@@ -49,10 +49,10 @@
             <span class="px-8 ml-1 font-semibold text-green-500 text-base">25% off!</span>
           </div>
           <div class="absolute -mt-32 text-right">
-            <span class="mt-10 z-20 fixed font-bold text-gray-600 text-xl pr-0">$<span class="font-semibold ml-1">{{ info.msrp }}</span></span><div style="margin-top:3.25rem;" class="absolute w-22 h-1 rounded bg-red-600 opacity-50" />
+            <span class="mt-10 z-20 fixed font-semibold text-gray-600 text-xl pr-0">$<span class="font-semibold ml-1">{{ info.msrp }}</span></span><div style="margin-top:3.25rem;" class="absolute w-32 -ml-2 h-1 rounded bg-red-600 opacity-50" />
           </div>
           <div class="absolute -mt-20">
-            <span style="font-size: 4rem; font-weight:600;" class="hidden absolute text-gray-700 -mt-6 z-10">$</span> <span class="ml-0 mt-3 z-20 fixed font-black text-gray-700 text-3xl">$<span class="font-semibold ml-1">{{ info.price }}</span></span>
+            <span style="font-size: 4rem; font-weight:600;" class="hidden absolute text-gray-700 -mt-6 z-10">$</span> <span class="ml-0 mt-3 z-20 fixed font-bold text-gray-700 text-3xl">$<span class="font-semibold ml-1">{{ info.price }}</span></span>
           </div>
         </div>
         <div class="variant">
@@ -238,7 +238,7 @@ img {
   margin-bottom: 0.1rem;
   color: #4c4c4c;
   font-size: 1.5rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 .title span {
   font-size: 0.7rem;

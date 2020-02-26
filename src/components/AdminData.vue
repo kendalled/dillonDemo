@@ -2,8 +2,8 @@
   <div class="container mx-auto px-4 sm:px-4 antialiased font-sans">
     <div class="py-8">
       <div>
-        <h2 class="text-xl text-gray-800 font-semibold leading-tight">
-          Showcase Items
+        <h2 class="text-2xl text-gray-900 font-bold leading-tight">
+          Showcase Items <span v-if="need" class="text-red-600 font-bold">*</span>
         </h2>
       </div>
       <div class="my-2 flex sm:flex-row flex-col" />
@@ -13,42 +13,42 @@
             <thead>
               <tr>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   Title
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   Link
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   msrp
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   price
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   photos
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   Features
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   ID
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
                   actions
                 </th>
@@ -78,19 +78,38 @@
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
-                  <p class="text-gray-600 font-semibold whitespace-no-wrap">
-                    {{ elem.msrp }}
+                  <p class="text-gray-700 font-semibold whitespace-no-wrap">
+                    ${{ elem.msrp }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
                   <p class="text-green-600 font-semibold whitespace-no-wrap">
-                    {{ elem.price }}
+                    ${{ elem.price }}
                   </p>
                 </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    <span class="font-semibold">{{ elem.page.data.length }}/3</span> photos
-                  </p>
+                <td class="px-5 py-6 border-b border-gray-200 bg-white text-sm max-w-xs">
+                  <div class="flex overflow-hidden">
+                    <img
+                      v-for="(pic, q) in elem.page.data"
+                      :src="pic"
+                      :class="[q !== 0 ? '-ml-2' : '-ml-0']"
+                      v-if="!filesChanged"
+                      @click="modalOpenerImg(elem)"
+                      class="inline-block h-10 w-10 rounded-full text-white shadow-solid border-gray-400 border-2 object-cover bg-white hover:border-blue-500 transition-colors cursor-pointer"
+                      draggable="false"
+                      alt="Photo"
+                    >
+                    <img
+                      v-for="(img, j) in opened.page.data"
+                      v-if="filesChanged"
+                      :src="img"
+                      :class="[j !== 0 ? '-ml-2' : '-ml-0']"
+                      @click="modalOpenerImg(elem)"
+                      class="inline-block h-10 w-10 rounded-full text-white shadow-solid border-gray-400 border-2 object-cover bg-white hover:border-blue-500 transition-colors cursor-pointer"
+                      draggable="false"
+                      alt="Photo"
+                    >
+                  </div>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm max-w-xs overflow-hidden">
                   <p class="text-gray-900 whitespace-no-wrap">
@@ -106,9 +125,10 @@
                   <button
                     @click="modalOpener(elem)"
                     aria-hidden
-                    class="relative inline-flex -tems-center bg-green-200 px-5 py-1 font-bold text-green-600 hover:text-white leading-tight rounded-full hover:bg-green-600 transition-colors cursor-pointer"
+                    class="text-sm relative inline-flex -tems-center bg-green-200 shadow px-5 py-2 font-bold text-green-800 hover:text-white leading-tight rounded hover:bg-green-600 transition-colors cursor-pointer focus:outline-none"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 mr-2 icon-edit fill-current"><path class="primary" d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z" /><rect
+                    <span>edit</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3 h-3 ml-2 mt-1 icon-edit fill-current"><path class="primary" d="M4 14a1 1 0 0 1 .3-.7l11-11a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 0 1.4l-11 11a1 1 0 0 1-.7.3H5a1 1 0 0 1-1-1v-3z" /><rect
                       width="20"
                       height="2"
                       x="2"
@@ -116,33 +136,30 @@
                       class="secondary"
                       rx="1"
                     /></svg>
-                    <span>edit</span>
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
+          <!-- yeet -->
           <div
-            class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          "
+            class="px-5 py-5 bg-white border-t border-gray-200 flex flex-col xs:flex-row items-center xs:justify-between"
           >
-            <span class="text-xs xs:text-sm text-gray-900">
-              This is placeholder text
+            <span class="text-xs xs:text-sm text-gray-800 mt-3 absolute font-semibold">
+              {{ data.length }}/{{ data.length }} slides <span v-if="need" class="text-sm font-semibold text-red-600">*</span>
             </span>
-            <div class="inline-flex mt-2 xs:mt-0">
-              <button
-                class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l"
-              >
-                Prev
-              </button>
-              <button
-                class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r"
-              >
-                Next
+            <div class="flex w-full justify-end xs:mt-0">
+              <button @click="addSlide" class="bg-green-200 hover:bg-green-500 text-green-900 font-bold py-2 px-4 rounded inline-flex items-center transition-colors group focus:outline-none shadow">
+                <span class="group-hover:text-white">Add Slide</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-auto ml-3 fill-current text-green-700 group-hover:text-gray-100 icon-add-circle transition-none"><circle cx="12" cy="12" r="10" class="primary" /><path class="secondary fill-current text-white group-hover:text-gray-800 transition-colors" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z" /></svg>
               </button>
             </div>
           </div>
         </div>
       </div>
+      <!-- <div v-if="isDifferent" class="flex w-full h-auto justify-end mt-4">
+        <button class="bg-blue-500 px-4 py-1 font-bold hover:bg-blue-600 transition-colors text-sm text-white rounded shadow">Save New Items</button>
+      </div> -->
       <Modal :open="modalOpen" @close="modalOpen = false" class="modal">
         <div @click="modalOpen = false" class="cursor-pointer z-50 flex w-full justify-end -mt-4">
           <svg
@@ -226,8 +243,8 @@
             >
           </div>
         </div>
-        <span v-show="base" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left w-full">Images</span>
-        <div v-show="base" class="flex justify-start mb-4 w-full">
+        <span v-if="base" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left w-full">Images</span>
+        <div v-if="base" class="flex justify-start mb-4 w-full">
           <div v-for="(img, j) in opened.page.data" v-if="!filesChanged" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer">
             <img :src="img" class="inline-block w-auto h-16 object-cover" draggable="false">
           </div>
@@ -241,14 +258,77 @@
             </button>
           </div>
         </div>
-        <div class="flex w-full h-auto justify-between">
-          <button v-if="base" @click="base = false" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
-            back
+        <div v-if="base" class="flex flex-wrap -mx-3 mt-3 mb-2">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="feat0">
+              Feature 1
+            </label>
+            <input
+              id="feat0"
+              v-model="opened.features[0]"
+              v-if="opened.features[0]"
+              @input="needSaved"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="Great battery life"
+            >
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="feat1">
+              Feature 2
+            </label>
+            <input
+              id="feat1"
+              v-model="opened.features[1]"
+              v-if="opened.features[1]"
+              @input="needSaved"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="Great wooden legs"
+            >
+          </div>
+        </div>
+        <div v-if="base" class="flex flex-wrap -mx-3 mt-3 mb-2">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="feat0">
+              Feature 3
+            </label>
+            <input
+              id="feat0"
+              v-model="opened.features[2]"
+              v-if="opened.features[2]"
+              @input="needSaved"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="Custom rack included"
+            >
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="feat1">
+              Feature 4
+            </label>
+            <input
+              id="feat1"
+              v-model="opened.features[3]"
+              v-if="opened.features[3]"
+              @input="needSaved"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              type="text"
+              placeholder="Free shipping"
+            >
+          </div>
+        </div>
+        <div class="flex w-full h-auto justify-start">
+          <button v-if="base" @click="backHandler" class="focus:outline-none flex-shrink-0 border-b-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-xs py-1 px-6 transition-colors" type="button">
+            go back
           </button>
-          <button v-if="!base" @click="base = true" class="focus:outline-none flex-shrink-0 border-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-sm py-1 px-2 rounded transition-colors" type="button">
-            edit photos
+          <button v-if="base" @click="deleteSlide(opened)" class="ml-4 focus:outline-none flex-shrink-0 border-b-2 border-gray-400 text-gray-600 font-semibold hover:text-red-800 hover:border-red-600 text-xs py-1 px-6 transition-colors" type="button">
+            delete slide
           </button>
-          <button @click="saveData(opened)" class="flex-shrink-0 bg-blue-500 font-semibold hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-5 rounded transition-colors" type="button">
+          <button v-if="!base" @click="base = true" class="focus:outline-none flex-shrink-0 border-b-2 border-blue-200 text-blue-500 font-semibold hover:text-blue-800 hover:border-blue-600 text-xs py-1 px-6 transition-colors" type="button">
+            photos and features
+          </button>
+          <button @click="saveData(opened)" class="ml-auto flex-shrink-0 bg-blue-500 font-semibold hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-5 rounded transition-colors focus:outline-none shadow" type="button">
             Save
           </button>
         </div>
@@ -303,6 +383,50 @@ export default {
     }
   },
   methods: {
+    backHandler () {
+      if (process.browser) {
+        if (!this.need) {
+          this.base = false
+        } else {
+          const con = confirm('This is a save warning. Clicking cancel closes this dialog so you can save first. Clicking OK loses changes on photos & features.')
+          if (con) {
+            this.base = false
+          } else {
+            console.log('you hit cancel.')
+          }
+        }
+      }
+    },
+    addSlide () {
+      this.need = true
+      const id = 'item' + (this.data.length + 1).toString()
+      const variab = { 'features': [ 'Professional quality', '5 year limited warranty', 'Customizable felt colors', 'Dining top available' ], id, 'link': 'https://pooltablestore.com/tables-1/', 'msrp': '3,249.99', 'page': { 'active': true, 'data': [ 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnewnew.png?alt=media&token=193eaf5b-5350-4847-8a86-d56c417d74ec', 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnew2.png?alt=media&token=c3fd3a66-410a-4744-a25f-05d888688a85', 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnew3.png?alt=media&token=4e9bb3c0-716c-4a03-829a-064ed55dfc0c' ], 'ind': 0, 'pid': 'p0', 'title': 'pac-man' }, 'price': '2,434.99', 'title': 'Empty Slide' }
+      this.data.push(variab)
+    },
+    deleteSlide (val) {
+      const ind = this.data.indexOf(val)
+      const vm = this
+      if (ind !== 0 && ind !== 1) {
+        // db reference
+        const itemRef = fireDb.collection('items').doc(val.id)
+        // local cached copy spliced
+        const index = this.data.indexOf(val)
+        if (index !== -1) {
+          this.data.splice(index, 1)
+        }
+        // firestore copy
+        itemRef.delete().then(function () {
+          console.log('Document successfully deleted!')
+          vm.need = false
+        }).catch(function (error) {
+          console.error('Error removing document: ', error)
+        })
+        // closes modal
+        this.modalOpen = false
+      } else {
+        alert('Cannot delete first 2 slides - they serve as backups.')
+      }
+    },
     openPrev () {
       const vm = this
       if (process.browser) {
@@ -325,10 +449,10 @@ export default {
     },
     saveData (val) {
       // db reference
-      const blogref = fireDb.collection('items').doc(val.id)
+      const itemRef = fireDb.collection('items').doc(val.id)
       // sets in firestore
       try {
-        blogref.set(val)
+        itemRef.set(val)
       } catch (error) {
         alert(error)
       }
@@ -340,6 +464,12 @@ export default {
       console.log(elem)
       this.modalOpen = true
       this.opened = elem
+    },
+    modalOpenerImg (elem) {
+      console.log(elem)
+      this.modalOpen = true
+      this.opened = elem
+      this.base = true
     }
   }
 }

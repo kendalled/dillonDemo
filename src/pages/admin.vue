@@ -1,8 +1,8 @@
 <template>
   <client-only>
     <div class="admin-wrapper">
-      <div v-if="loggedIn" class="font-sans bg-grey-lighter flex flex-col min-h-screen w-full">
-        <div class="bg-gray-100 shadow">
+      <div v-if="loggedIn" class="font-sans mybg flex flex-col min-h-screen w-full justify-between">
+        <div class="bg-white border-b">
           <div class="container mx-auto px-4">
             <div class="flex items-center md:justify-between py-4">
               <div class="w-1/4 md:hidden">
@@ -29,8 +29,15 @@
             </div>
           </div>
         </div>
-        <AdminData :data="doc" v-if="isDoc" />
-        <AFooter class="hidden" />
+        <AdminData :data="doc" v-if="isDoc" class="mb-auto" />
+        <div class="flex items-center justify-center w-full h-16">
+          <div class="text-gray-700 text-center md:mr-4 text-xs">
+            &copy; 2020 <a href="kendallkj00@gmail.com" title="links to kendall's github" class="text-blue-600 underline hover:no-underline hover:text-blue-800 transition-colors">Kendall Jackson</a>
+          </div>
+          <div class="inline-block w-auto text-xs text-gray-700 leading-tight">
+            <span class="font-semibold">Note:</span><span class="italic"> Edit and save each slide individually to provide instant updates and consistent performance.</span>
+          </div>
+        </div>
       </div>
       <div v-if="!loggedIn" class="flex flex-col h-screen w-screen items-center justify-center text-center">
         <h3 class="text-2xl font-semibold text-gray-800 w-full">
@@ -91,15 +98,13 @@ import AccountDropdown from '~/components/AccountDropdown'
 import AdminData from '~/components/AdminData'
 import { auth, fireDb } from '~/plugins/firebase'
 import Modal from '~/components/Modal'
-import AFooter from '~/components/AFooter'
 export default {
   name: 'Admin',
   layout: 'Admin',
   components: {
     AccountDropdown,
     AdminData,
-    Modal,
-    AFooter
+    Modal
   },
   data () {
     return {
@@ -146,13 +151,6 @@ export default {
     // TODO: error handling
       console.log(e)
     }
-    // if (data !== []) {
-    //   for (let i = 0; i < data.length; i++) {
-    //     for (let j = 0; j < data[i].data.length; j++) {
-    //       data[i].data[j] = require(data[i].data[j])
-    //     }
-    //   }
-    // }
     return {
       doc: data
     }
@@ -206,3 +204,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.mybg {
+  background-color: #f7fafc;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d2d2d2' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+</style>
