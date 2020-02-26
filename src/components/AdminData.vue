@@ -3,7 +3,7 @@
     <div class="py-8">
       <div>
         <h2 class="text-2xl text-gray-900 font-bold leading-tight">
-          Showcase Items <span v-if="need" class="text-red-600 font-bold">*</span>
+          Showcase Items <span v-if="need" class="text-red-600 font-black">*</span>
         </h2>
       </div>
       <div class="my-2 flex sm:flex-row flex-col" />
