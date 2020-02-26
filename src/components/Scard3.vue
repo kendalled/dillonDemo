@@ -1,41 +1,8 @@
 <template>
   <div class="productRoot -mt-4">
     <section class="product max-w-lg bg-white rounded py-10">
-      <div class="product__photo">
-        <div class="photo-container shadow-lg">
-          <div class="photo-main">
-            <div class="controls mt-4 flex items-center justify-end">
-              <svg @click="openModal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 mr-4 icon-mail cursor-pointer"><path class="primary" d="M22 8.62V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.62l9.55 4.77a1 1 0 0 0 .9 0L22 8.62z" /><path class="primary" d="M12 11.38l-10-5V6c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v.38l-10 5z" /></svg>
-            </div>
-            <img
-              v-for="(pic, q) in info.page.data"
-              :key="q"
-              :src="pic"
-              v-show="selected === pic"
-              :class="[q === 1 ? 'mt-16' : 'mt-4']"
-              class="w-auto h-auto ml-4 shadowed"
-              alt="green apple slice"
-            >
-            <div class="absolute bg-red-700 border-4 border-red-700 shadow rounded-r-lg font-bold text-white px-8 py-2 text-sm tracking-relaxed" style="margin-top: 20rem; margin-left: 0rem;">
-              SALE
-            </div>
-          </div>
-          <div class="photo-album">
-            <ul>
-              <li
-                @click="clickHandler(img)"
-                v-for="(img, j) in info.page.data"
-                :key="j"
-                :class="[img === selected ? 'border-gray-600' : 'w-16']"
-                class="w-16 h-auto border-2 hover:border-blue-600 transition-colors cursor-pointer"
-                draggable="false"
-              >
-                <img :src="img" alt="green apple" class="object-cover -mt-1 h-12 w-auto" draggable="false">
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <PngHolder :imgs="info.page.data" @modal="openModal" v-if="info.isPNG" />
+      <JpgHolder :imgs="info.page.data" @modal="openModal" v-if="!info.isPNG" />
       <div class="product__info">
         <div class="title">
           <h1>{{ info.title }}</h1>
@@ -84,10 +51,14 @@
 </template>
 
 <script>
+import JpgHolder from '~/components/JpgHolder'
+import PngHolder from '~/components/PngHolder'
 import Email from '~/components/Email'
 export default {
   name: 'Scard3',
   components: {
+    JpgHolder,
+    PngHolder,
     Email
   },
   props: {
@@ -189,46 +160,6 @@ img {
   display: grid;
   grid-template-columns: 0.9fr 1fr;
   min-width: 600px;
-}
-/* ----- Photo Section ----- */
-.product__photo {
-  position: relative;
-}
-.photo-container {
-  position: absolute;
-  left: -2.5rem;
-  display: grid;
-  grid-template-rows: 1fr;
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-}
-/* kendall */
-.photo-main {
-  border-radius: 6px 6px 0 0;
-  background-color: #9be010;
-  background: radial-gradient(#667EEA, #4C51BF);
-}
-.photo-main img {
-  position: absolute;
-  left: -.2rem;
-  top: 3rem;
-  max-width: 90%;
-  backface-visibility: hidden;
-}
-.photo-album {
-  padding: 0.7em 1rem;
-  border-radius: 0 0 6px 6px;
-  background-color: #fff;
-}
-.photo-album ul {
-  display: flex;
-  justify-content: space-around;
-}
-.photo-album li {
-  float: left;
-  padding: 7px;
-  border-radius: 3px;
 }
 /* ----- Informations Section ----- */
 .product__info {

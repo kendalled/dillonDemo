@@ -31,11 +31,11 @@
         </div>
         <AdminData :data="doc" v-if="isDoc" class="mb-auto" />
         <div class="flex items-center justify-center w-full h-16">
-          <div class="text-gray-700 text-center md:mr-4 text-xs">
+          <div class="text-gray-700 text-center md:mr-2 text-xs">
             &copy; 2020 <a href="kendallkj00@gmail.com" title="links to kendall's github" class="text-blue-600 underline hover:no-underline hover:text-blue-800 transition-colors">Kendall Jackson</a>
           </div>
-          <div class="inline-block w-auto text-xs text-gray-700 leading-tight">
-            <span class="font-semibold">Note:</span><span class="italic"> Edit and save each slide individually to provide instant updates and consistent performance.</span>
+          <div class="inline-block w-auto text-xs text-gray-700 leading-tighter">
+            <span class="font-semibold">Note:</span><span class="italic"> Edit and save each slide individually to guarantee consistent performance.</span> Report errors <a class="text-blue-600 underline hover:no-underline hover:text-blue-800 transition-colors" href="mailto:kendallkj00@gmail.com" title="Email kendall a screenshot of the problem.">here.</a>
           </div>
         </div>
       </div>

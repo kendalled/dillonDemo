@@ -9,9 +9,11 @@
         <Scard2 @open="showOpen" v-if="i !== 1" :info="slide" class="SCARD32" />
         <!-- <Scard3 @open="showOpen" :info="slide" v-else /> -->
       </div>
-      <div v-for="(slide) in extra" :key="slide.title">
-        <Scard3 @open="showOpen" :info="slide" />
-      </div>
+      <client-only>
+        <div v-for="(slide) in extra" :key="slide.title">
+          <Scard3 @open="showOpen" :info="slide" />
+        </div>
+      </client-only>
     </div>
     <Modal :open="openModal" @close="openModal = false" class="modal">
       <h1 class="text-center font-bold text-gray-800 text-xl">

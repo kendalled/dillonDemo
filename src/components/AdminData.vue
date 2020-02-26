@@ -32,7 +32,7 @@
                       >
                     </div>
                     <div class="ml-3">
-                      <p class="text-gray-900 whitespace-no-wrap font-semibold">
+                      <p class="text-gray-900 font-semibold max-w-md overflow-hidden">
                         {{ elem.title }}
                       </p>
                     </div>
@@ -212,10 +212,10 @@
         <span v-if="base" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left w-full">Images</span>
         <div v-if="base" class="flex justify-start mb-4 w-full">
           <div v-for="(img, j) in opened.page.data" v-if="!filesChanged" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer">
-            <img :src="img" class="inline-block w-auto h-16 object-cover" draggable="false">
+            <img :src="img" class="inline-block w-16 h-16 object-cover" draggable="false">
           </div>
           <div v-for="(img, j) in opened.page.data" v-if="filesChanged" @click="chooseImg(j)" :class="[j === picIndex ? 'border-blue-500' : 'border-gray-400']" class="border-2 overflow-hidden rounded w-16 h-16 mr-4 cursor-pointer">
-            <img :src="img" class="inline-block w-auto h-16 object-cover" draggable="false">
+            <img :src="img" class="inline-block w-16 h-16 object-cover" draggable="false">
           </div>
           <div class="flex-col w-1/2 h-auto">
             <CustomFileInput @file="newFile" />
@@ -367,13 +367,13 @@ export default {
     addSlide () {
       this.need = true
       const id = 'item' + (this.data.length + 1).toString()
-      const variab = { 'features': [ 'Professional quality', '5 year limited warranty', 'Customizable felt colors', 'Dining top available' ], id, 'link': 'https://pooltablestore.com/tables-1/', 'msrp': '3,249.99', 'page': { 'active': true, 'data': [ 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnewnew.png?alt=media&token=193eaf5b-5350-4847-8a86-d56c417d74ec', 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnew2.png?alt=media&token=c3fd3a66-410a-4744-a25f-05d888688a85', 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnew3.png?alt=media&token=4e9bb3c0-716c-4a03-829a-064ed55dfc0c' ], 'ind': 0, 'pid': 'p0', 'title': 'pac-man' }, 'price': '2,434.99', 'title': 'Empty Slide' }
+      const variab = { 'isPNG': false, 'features': [ 'Professional quality', '5 year limited warranty', 'Customizable felt colors', 'Dining top available' ], id, 'link': 'https://pooltablestore.com/tables-1/', 'msrp': '3,249.99', 'page': { 'active': true, 'data': [ 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnewnew.png?alt=media&token=193eaf5b-5350-4847-8a86-d56c417d74ec', 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnew2.png?alt=media&token=c3fd3a66-410a-4744-a25f-05d888688a85', 'https://firebasestorage.googleapis.com/v0/b/dillondemo1.appspot.com/o/poolnew3.png?alt=media&token=4e9bb3c0-716c-4a03-829a-064ed55dfc0c' ], 'ind': 0, 'pid': 'p0', 'title': 'pac-man' }, 'price': '2,434.99', 'title': 'Empty Slide' }
       this.data.push(variab)
     },
     deleteSlide (val) {
       const ind = this.data.indexOf(val)
       const vm = this
-      if (ind !== 0 && ind !== 1) {
+      if (ind > 2) {
         // db reference
         const itemRef = fireDb.collection('items').doc(val.id)
         // local cached copy spliced
@@ -391,7 +391,7 @@ export default {
         // closes modal
         this.modalOpen = false
       } else {
-        alert('Cannot delete first 2 slides - they serve as backups.')
+        alert('Cannot delete first 3 slides - they serve as backups. First two PNG, then 1 JPG example.')
       }
     },
     openPrev () {
