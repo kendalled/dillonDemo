@@ -13,44 +13,10 @@
             <thead>
               <tr>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
+                  v-for="heading in headings"
+                  class="px-5 py-3 border-b-2 border-gray-400 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
                 >
-                  Title
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  Link
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  msrp
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  price
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  photos
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  Features
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  ID
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-600 bg-gray-800 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider"
-                >
-                  actions
+                  {{ heading }}
                 </th>
               </tr>
             </thead>
@@ -357,6 +323,7 @@ export default {
   },
   data () {
     return {
+      headings: ['title', 'link', 'msrp', 'price', 'photos', 'features', 'id', 'actions'],
       url: '',
       opened: this.data[0],
       picIndex: 0,
