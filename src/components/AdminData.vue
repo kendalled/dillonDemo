@@ -428,14 +428,14 @@ export default {
       console.log('updated firestore??')
     },
     modalOpener (elem) {
-      console.log(elem)
-      this.modalOpen = true
+      // console.log(elem)
       this.opened = elem
+      this.modalOpen = true
     },
     modalOpenerImg (elem) {
-      console.log(elem)
-      this.modalOpen = true
+      // console.log(elem)
       this.opened = elem
+      this.modalOpen = true
       this.base = true
     }
   }
