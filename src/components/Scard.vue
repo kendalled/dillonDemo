@@ -52,7 +52,7 @@
             <span class="px-8 ml-1 font-semibold text-green-500 text-base">25% off!</span>
           </div>
           <div class="absolute -mt-32 text-right">
-            <span class="mt-10 z-20 fixed font-semibold text-gray-600 text-xl pr-0">$<span class="font-semibold ml-1">329.99</span></span><div style="margin-top:3.25rem;" class="absolute w-24 h-1 -ml-1 rounded bg-red-600 opacity-50" />
+            <span class="mt-10 z-20 fixed font-semibold text-gray-600 text-xl pr-0">$<span class="font-semibold ml-1 line-through">329.99</span></span><!--<div style="margin-top:3.25rem;" class="absolute w-24 h-1 -ml-1 rounded bg-red-600 opacity-50" /> -->
           </div>
           <div class="absolute -mt-20">
             <span style="font-size: 4rem; font-weight:600;" class="hidden absolute text-gray-700 -mt-6 z-10">$</span> <span class="ml-0 mt-3 z-20 fixed font-bold text-gray-700 text-3xl">$<span class="font-semibold ml-1">249.99</span></span>

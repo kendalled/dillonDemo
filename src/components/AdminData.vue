@@ -112,9 +112,6 @@
           </div>
         </div>
       </div>
-      <!-- <div v-if="isDifferent" class="flex w-full h-auto justify-end mt-4">
-        <button class="bg-blue-500 px-4 py-1 font-bold hover:bg-blue-600 transition-colors text-sm text-white rounded shadow">Save New Items</button>
-      </div> -->
       <Modal :open="modalOpen" @close="modalOpen = false" class="modal">
         <div @click="modalOpen = false" class="cursor-pointer z-50 flex w-full justify-end -mt-4">
           <svg
@@ -129,9 +126,11 @@
             />
           </svg>
         </div>
-        <h1 v-if="modalOpen" class="-mt-2 mb-2 text-center font-semibold text-lg text-gray-800">
-          Editing: {{ opened.id }}<span :class="[need ? 'text-red-700' : 'hidden']">*</span>
-        </h1>
+        <div v-if="modalOpen" class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Editing: {{ opened.id }}<span :class="[need ? 'text-red-700' : 'hidden']">*</span>
+          </h3>
+        </div>
         <div v-show="!base" class="flex flex-wrap -mx-3 mt-3 mb-2">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="title">
