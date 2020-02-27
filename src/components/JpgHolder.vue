@@ -2,26 +2,29 @@
   <div class="wrapper shadow-xl">
     <div class="container">
       <div class="top overflow-hidden">
-        <img class="object-cover h-full object-center" :src="selected" />
+        <img :src="selected" class="object-cover h-full object-center">
+        <div class="absolute bg-red-700 border-4 border-red-700 shadow rounded-r-lg font-bold text-white px-8 py-2 text-sm tracking-relaxed z-100 -mt-24 ml-0">
+          SALE
+        </div>
       </div>
       <div class="product__photo">
-          <div class="photo-container absolute ml-10">
-            <div class="photo-album">
-              <ul>
-                <li
-                  @click="clickHandler(img)"
-                  v-for="(img, j) in imgs"
-                  :key="j"
-                  :class="[img === selected ? 'border-blue-600' : 'w-16']"
-                  class="w-16 h-16 border-2 border-gray-400 hover:border-gray-600 transition-colors cursor-pointer"
-                  draggable="false"
-                >
-                  <img :src="img" alt="green apple" class="object-cover -mt-1 h-16 w-16" draggable="false">
-                </li>
-              </ul>
-            </div>
+        <div class="photo-container absolute ml-10">
+          <div class="photo-album">
+            <ul>
+              <li
+                @click="clickHandler(img)"
+                v-for="(img, j) in imgs"
+                :key="j"
+                :class="[img === selected ? 'border-blue-600' : 'w-16']"
+                class="w-16 h-16 border-2 border-gray-400 hover:border-gray-600 transition-colors cursor-pointer"
+                draggable="false"
+              >
+                <img :src="img" alt="green apple" class="object-cover -mt-1 h-16 w-16" draggable="false">
+              </li>
+            </ul>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </template>
