@@ -12,8 +12,8 @@
                   @click="clickHandler(img)"
                   v-for="(img, j) in imgs"
                   :key="j"
-                  :class="[img === selected ? 'border-gray-600' : 'w-16']"
-                  class="w-16 h-16 border-2 border-gray-400 hover:border-blue-600 transition-colors cursor-pointer"
+                  :class="[img === selected ? 'border-blue-600' : 'w-16']"
+                  class="w-16 h-16 border-2 border-gray-400 hover:border-gray-600 transition-colors cursor-pointer"
                   draggable="false"
                 >
                   <img :src="img" alt="green apple" class="object-cover -mt-1 h-16 w-16" draggable="false">
