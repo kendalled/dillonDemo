@@ -21,7 +21,7 @@
                 alt="green apple slice"
               >
             </transition>
-            <span class="absolute ml-40 mt-12 bg-white rounded-full text-gray-800 px-4 py-4 text-center border-4 border-orange-400 cursor-pointer focus:outline-none shadow transition-colors"><p class="text-2xl font-semibold">100's</p><p class="text-lg font-semibold -mt-1 text-gray-700"> of titles!</p></span>
+            <span class="absolute ml-40 mt-12 bg-white rounded-full text-gray-800 px-4 pt-4 pb-5 text-center border-4 border-orange-400 cursor-pointer focus:outline-none shadow transition-colors"><p class="text-2xl font-semibold tracking-tight">100's</p><p class="text-lg font-semibold -mt-1 text-gray-700"> of titles!</p></span>
           </div>
           <div class="photo-album">
             <ul>
