@@ -95,7 +95,7 @@ html, body{
 
 .wrapper{
   width: 300px;
-  height: 500px;
+  height: 540px;
   background: white;
   margin: auto;
   position: relative;
