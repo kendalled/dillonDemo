@@ -59,17 +59,6 @@
                       v-for="(pic, q) in elem.page.data"
                       :src="pic"
                       :class="[q !== 0 ? '-ml-2' : '-ml-0']"
-                      v-if="!filesChanged"
-                      @click="modalOpenerImg(elem)"
-                      class="inline-block h-10 w-10 rounded-full text-white shadow-solid border-gray-400 border-2 object-cover bg-white hover:border-blue-500 transition-colors cursor-pointer"
-                      draggable="false"
-                      alt="Photo"
-                    >
-                    <img
-                      v-for="(img, j) in opened.page.data"
-                      v-if="filesChanged"
-                      :src="img"
-                      :class="[j !== 0 ? '-ml-2' : '-ml-0']"
                       @click="modalOpenerImg(elem)"
                       class="inline-block h-10 w-10 rounded-full text-white shadow-solid border-gray-400 border-2 object-cover bg-white hover:border-blue-500 transition-colors cursor-pointer"
                       draggable="false"
@@ -345,6 +334,7 @@ export default {
     url () {
       if (this.url !== '') {
         this.opened.page.data[this.picIndex] = this.url
+        this.filesChanged = true
         console.log('changed pics!')
       }
     }
