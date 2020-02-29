@@ -1,7 +1,7 @@
 <template>
   <client-only>
-    <div class="admin-wrapper">
-      <div v-if="loggedIn" class="font-sans mybg flex flex-col min-h-screen w-full justify-between">
+    <div class="admin-wrapper mybg">
+      <div v-if="loggedIn" class="font-sans flex flex-col min-h-screen w-full justify-between">
         <div class="bg-white border-b">
           <div class="container mx-auto px-4">
             <div class="flex items-center md:justify-between py-4">
@@ -100,7 +100,6 @@ import { auth, fireDb } from '~/plugins/firebase'
 import Modal from '~/components/Modal'
 export default {
   name: 'Admin',
-  layout: 'Admin',
   components: {
     AccountDropdown,
     AdminData,

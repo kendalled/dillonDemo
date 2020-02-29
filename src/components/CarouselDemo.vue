@@ -27,7 +27,7 @@
         You may unsubscribe at any time
       </p>
     </Modal>
-    <img :src="require('~/static/ptslogo2.png')" class="absolute -mt-20 ml-2 h-12 w-auto opacity-50">
+    <img :src="require('~/static/ptslogo2.png')" class="absolute -mt-16 ml-4 h-12 w-auto opacity-50">
     <!-- old tabbbar location, maybe put alerts / messages? -->
   </div>
 </template>

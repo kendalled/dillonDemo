@@ -1,5 +1,5 @@
 <template>
-  <div class="productRoot -mt-4">
+  <div class="productRoot -mt-8">
     <section class="product max-w-lg bg-white rounded py-10">
       <PngHolder :imgs="info.page.data" @modal="openModal" v-if="info.isPNG" />
       <JpgHolder :imgs="info.page.data" @modal="openModal" v-if="!info.isPNG" />

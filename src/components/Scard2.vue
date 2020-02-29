@@ -1,5 +1,5 @@
 <template>
-  <div class="productRoot -mt-4">
+  <div class="productRoot -mt-8">
     <section class="product max-w-lg bg-white rounded py-10">
       <div class="product__photo">
         <div class="photo-container shadow-lg">
