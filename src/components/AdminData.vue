@@ -126,7 +126,7 @@
             />
           </svg>
         </div>
-        <div v-if="modalOpen" class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+        <div v-if="modalOpen" class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 -mt-4">
           <h3 class="text-lg leading-6 font-medium text-gray-900">
             Editing: {{ opened.id }}<span :class="[need ? 'text-red-700' : 'hidden']">*</span>
           </h3>
